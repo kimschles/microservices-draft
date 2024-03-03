@@ -1,33 +1,27 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: dev-backend
 --- 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: learning-resources-api
-  namespace: dev-backend
+  name: learning-resources
   labels:
-    app: learning-api
+    app: learning-resources
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: learning-api
+      app: learning-resources
   template:
     metadata:
       labels:
-        app: learning-api
+        app: learning-resources
     spec:
       containers:
       - name: learning-resources-container
-        image: kimschles/learning-resources-api:0.0.1
+        image: kimschles/learning-resources:0.0.3
         ports:
-        - containerPort: 5000
+        - containerPort: 3000
         env:
-          - name: POD_NAME  
+          - name: POD_NAME
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name
@@ -43,12 +37,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: learning-resources-service
-  namespace: dev-backend
+  name: learning-service
+  labels:
+    app: learning-resources
 spec:
   selector:
-    app: learning-api
+    app: learning-resources
   ports:
-    - port: 80
-      targetPort: 5000
-  type: LoadBalancer
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP

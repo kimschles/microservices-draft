@@ -23,12 +23,12 @@ spec:
     spec:
       containers:
       - name: frontend-container
-        image: kimschles/frontend:0.0.8
+        image: kimschles/frontend:0.0.9
         ports:
         - containerPort: 5173
         env:
         - name: PUBLIC_K8S_SERVICE_URL
-          value: "10.96.27.134"
+          value: "http://learning-service.default.svc.cluster.local"
           # value: "Change this value to your backend service URL"
 ---
 apiVersion: v1
@@ -42,4 +42,4 @@ spec:
   ports:
     - port: 80
       targetPort: 5173
-  type: ClusterIP
+  type: LoadBalancer

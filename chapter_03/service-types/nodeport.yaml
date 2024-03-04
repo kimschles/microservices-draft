@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quote-service
+spec:
+  selector:
+    app: quote-app
+  type: NodePort
+  ports:
+    - name: echo
+      port: 8080
+      targetPort: 8080
+      nodePort: 30076
+      protocol: TCP

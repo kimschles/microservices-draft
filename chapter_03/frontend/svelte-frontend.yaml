@@ -28,7 +28,8 @@ spec:
         - containerPort: 5173
         env:
         - name: PUBLIC_K8S_SERVICE_URL
-          value: "http://learning-service.default.svc.cluster.local"
+          value: "192.168.100.159"
+          # value: "http://learning-service.default.svc.cluster.local"
           # value: "Change this value to your backend service URL"
 ---
 apiVersion: v1
